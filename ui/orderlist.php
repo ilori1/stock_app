@@ -45,7 +45,8 @@ include_once"header.php";
   <td>Due</td>
   <td>Payment Type</td>
 
-  <td>ActionIcons</td>
+<td>Sales By</td> <!-- New Header -->
+<td>Action Icons</td>
  
 
 </tr>
@@ -81,7 +82,7 @@ if($row->payment_type =="Cash"){
 echo'<td><span class="badge badge-danger">'.$row->payment_type.'</td></span></td>';
 
 }
-
+echo"<td>".$row->sales_by."</td>";
 
 echo"
 <td>

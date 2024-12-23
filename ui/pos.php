@@ -59,6 +59,8 @@ $arr_stock   = $_POST['stock_c_arr'];
 $arr_qty     = $_POST['quantity_arr'];
 $arr_price   = $_POST['price_c_arr'];
 $arr_total   = $_POST['saleprice_arr'];
+$sales_by = $_SESSION['username']; // Get the username from the session
+
 
 
 if ($paid < $due) {
@@ -66,7 +68,7 @@ if ($paid < $due) {
   exit;
 } else {
 
-$insert=$pdo->prepare("insert into tbl_invoice (order_date,subtotal,discount,sgst,cgst,total,payment_type,due,paid) values(:orderdate,:subtotal,:discount,:sgst,:cgst,:total,:payment_type,:due,:paid)");
+  $insert=$pdo->prepare("insert into tbl_invoice (order_date,subtotal,discount,sgst,cgst,total,payment_type,due,paid,sales_by) values(:orderdate,:subtotal,:discount,:sgst,:cgst,:total,:payment_type,:due,:paid,:sales_by)");
 
 $insert->bindParam(':orderdate',$orderdate);
 $insert->bindParam(':subtotal',$subtotal);
@@ -77,6 +79,8 @@ $insert->bindParam(':total',$total);
 $insert->bindParam(':payment_type',$payment_type);
 $insert->bindParam(':due',$due);
 $insert->bindParam(':paid',$paid);
+$insert->bindParam(':sales_by', $sales_by); // Bind the sales_by parameter
+
 
 $insert->execute();
  
@@ -205,7 +209,8 @@ th{background: #eee;}
     </div>
 
 
-    <form action="" method="post" name="" >
+<form action="" method="post" name="">
+    <input type="hidden" name="txtsalesby" value="<?php echo $_SESSION['username']; ?>"> <!-- Hidden input for Sales By -->
 
 
                 <select class="form-control select2" data-dropdown-css-class="select2-purple" style="width: 100%;">
@@ -299,7 +304,7 @@ th{background: #eee;}
                   </div>
                 </div>
 
-<div class="input-group">
+<!-- <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">SGST(NGN)</span>
                   </div>
@@ -307,9 +312,9 @@ th{background: #eee;}
                   <div class="input-group-append">
                     <span class="input-group-text">NGN</span>
                   </div>
-                </div>
+                </div> -->
 
-<div class="input-group">
+<!-- <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">CGST(NGN)</span>
                   </div>
@@ -318,8 +323,17 @@ th{background: #eee;}
                     <span class="input-group-text">NGN</span>
                   </div>
                 </div>
- 
+  -->
 <hr style="height:2px; border-width:0; color:black; background-color:black;">
+<!-- <div class="input-group">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Sales By</span>
+    </div>
+    <input type="hidden" class="form-control" name="txtsalesby" value="<?php echo $_SESSION['username']; ?>" readonly>
+</div>
+
+
+<hr style="height:2px; border-width:0; color:black; background-color:black;"> -->
 
 
 <div class="input-group">
